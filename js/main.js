@@ -1,11 +1,12 @@
 console.log('JS OK');
 
+//Costante prodotti
 const products = [
     {   
         id: 1,
         title: 'Mac Mini',
         subtitle: 'Nuovi muscoli. Nuovi traguardi.',
-        url: ‘mac_mini.jpg’',
+        url: 'mac_mini.jpg',
         price: 1999.99,
         category: 'laptop',
         description: 'Il nostro computer desktop più versatile si lancia in una nuova dimensione. Mac mini ora ha il rivoluzionario chip Apple M1, CPU fino a 3 volte più rapida, grafica fino a 6 volte più scattante e il Neural Engine più evoluto, che assicura performance fino a 15 volte migliori per il machine learning. Preparati a lavorare, giocare e creare con una velocità e una potenza che prima d’ora non avresti mai immaginato.',
@@ -15,7 +16,7 @@ const products = [
         id: 2,
         title: 'MacBook Air',
         subtitle: 'C’è una nuova potenza nell’Air.',
-        url: ‘macbook_air.jpg’,
+        url: 'macbook_air.jpg',
         price: 1299.00,
         category: 'laptop',
         description: 'Ti presentiamo il nuovo MacBook Air: il nostro portatile più sottile e leggero, completamente trasformato dal chip Apple M1. CPU fino a 3,5 volte più veloce. GPU fino a 5 volte più scattante. Il Neural Engine più evoluto di sempre, che assicura performance di machine learning fino a 9 volte migliori. Un’autonomia che su un MacBook Air non si era mai vista. E una tecnologia silenziosa, perché senza ventola. Ha una potenza senza precedenti, ed è pronto a seguirti ovunque.',
@@ -82,3 +83,68 @@ const products = [
         io: ['wifi, USB-C, Jack cuffie', 'waterproof']
     }
 ]
+
+//Creazione cards
+const row = document.querySelector('.row')
+
+for (let i = 0; i < products.length; i++) {
+    createProductCard(products[i], i)
+}
+
+//sggiunta e rimozione display cards description
+const cards = document.querySelectorAll('.card')
+const images = document.querySelectorAll('.card-img-top')
+
+let cart = 0
+let wishList = 0
+
+images.forEach(card => {card.addEventListener('click', function() {
+    const card_body = card.closest('.card');
+    const body = card_body.querySelector('.card-body')
+    body.classList.toggle('d-none');
+})});
+
+//aggiunta prodotto in carrello e wishlist
+const btn_purchase = document.querySelectorAll('.btn-1')
+
+const HTMLcart = document.querySelector('.carrello')
+
+const HTMLwishList = document.querySelector('.wishList')
+
+const Purchase = document.querySelector('.acquista')
+
+btn_purchase.forEach(button => {button.addEventListener('click', function(){
+    cart += 1
+    HTMLcart.innerHTML = `Hai ${cart} prodotti nel carrello`
+})});
+
+const btn_wishList = document.querySelectorAll('.btn-2')
+
+btn_wishList.forEach(button => {button.addEventListener('click', function(){
+    wishList += 1
+    HTMLwishList.innerHTML = `Hai ${wishList} prodotti nella wish list`
+})});
+
+Purchase.addEventListener('click', function() {
+    alert (`Grazie di aver acquistato ${cart} prodotti`)
+    cart = 0
+    HTMLcart.innerHTML = `Hai ${cart} prodotti nel carrello`
+})
+
+//FUNZIONI
+
+function createProductCard(obj, n) {
+    row.innerHTML += `
+    <div id="${n}" class="card col-3 p-3">
+        <img class="card-img-top h-200px obj-contain" src="./assets/${obj.url}" alt="${obj.title}">
+        <div class="card-body d-none">
+            <h3 class="card-title">${obj.title}</h3>
+            <h5 class="card-subtitle">${obj.subtitle}</h5>
+            <p class="card-text">${obj.description}</p>
+            <h6>${obj.price}€</h6>
+            <button class="btn btn-1 btn-primary">Purchase</button>
+            <button class="btn btn-2 btn-primary">Go to wish list</button>
+        </div>
+    </div>
+    `
+}
