@@ -91,7 +91,7 @@ for (let i = 0; i < products.length; i++) {
     createProductCard(products[i], i)
 }
 
-//sggiunta e rimozione display cards description
+//aggiunta e rimozione display cards description
 const cards = document.querySelectorAll('.card')
 const images = document.querySelectorAll('.card-img-top')
 
@@ -100,7 +100,8 @@ let wishList = 0
 
 images.forEach(card => {card.addEventListener('click', function() {
     const card_body = card.closest('.card');
-    const body = card_body.querySelector('.card-body')
+    card_body.classList.toggle('h-500px');
+    const body = card_body.querySelector('.card-body');
     body.classList.toggle('d-none');
 })});
 
@@ -126,24 +127,30 @@ btn_wishList.forEach(button => {button.addEventListener('click', function(){
 })});
 
 Purchase.addEventListener('click', function() {
-    alert (`Grazie di aver acquistato ${cart} prodotti`)
-    cart = 0
-    HTMLcart.innerHTML = `Hai ${cart} prodotti nel carrello`
+    if (cart > 1) {
+        alert (`Grazie di aver acquistato ${cart} prodotti`)
+        cart = 0
+        HTMLcart.innerHTML = `Hai ${cart} prodotti nel carrello`
+    } else if (cart = 1) {
+        alert (`Grazie di aver acquistato ${cart} prodotto`)
+        cart = 0
+        HTMLcart.innerHTML = `Hai ${cart} prodotti nel carrello`
+    }
 })
 
 //FUNZIONI
 
 function createProductCard(obj, n) {
     row.innerHTML += `
-    <div id="${n}" class="card col-3 p-3">
+    <div id="${n}" class="card col-12 p-3 my-2">
         <img class="card-img-top h-200px obj-contain" src="./assets/${obj.url}" alt="${obj.title}">
-        <div class="card-body d-none">
-            <h3 class="card-title">${obj.title}</h3>
-            <h5 class="card-subtitle">${obj.subtitle}</h5>
-            <p class="card-text">${obj.description}</p>
-            <h6>${obj.price}€</h6>
-            <button class="btn btn-1 btn-primary">Purchase</button>
-            <button class="btn btn-2 btn-primary">Go to wish list</button>
+        <div class="card-body d-flex flex-column d-none">
+            <h3 class="card-title text-center">${obj.title}</h3>
+            <h5 class="card-subtitle my-2 text-center">${obj.subtitle}</h5>
+            <p class="card-text flex-grow-1 text-center">${obj.description}</p>
+            <h2 class="text-center">${obj.price}€</h2>
+            <button class="btn btn-1 my-2 btn-primary">Purchase</button>
+            <button class="btn btn-2 my-2 btn-primary">Go to wish list</button>
         </div>
     </div>
     `

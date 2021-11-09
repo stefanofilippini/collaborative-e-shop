@@ -4,12 +4,16 @@
     box-sizing: border-box;
 }
 
+body {
+    padding-top: 100px;
+}
+
 .h-200px {
     height: 200px;
 }
 
-.h-1200px {
-    height: 1200px;
+.h-800px {
+    height: 500px;
 }
 
 .obj-contain {
